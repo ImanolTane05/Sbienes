@@ -1,10 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
 import { FaUsers, FaShoppingCart, FaBook, FaCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 
-function IndexAdmin() {
+function AdminView({ user }) {
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -21,7 +21,7 @@ function IndexAdmin() {
       </header>
       <main className="admin-content">
         <div className="welcome-section">
-          <h1>Bienvenido Ruben</h1>
+          <h1>Bienvenido {user ? user.nombre : "Invitado"}</h1>
           <p>Atendiendo una necesidad urgente de modernizar la administración de Justicia</p>
         </div>
         <div className="button-grid">
@@ -50,4 +50,4 @@ function IndexAdmin() {
   );
 }
 
-export default IndexAdmin;
+export default AdminView;

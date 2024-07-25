@@ -6,6 +6,7 @@ import Welcome from "./components/welcome";
 import PoliticasCondiciones from "./components/politicasCondiciones";
 import ViewsUsuarios from './components/viewsusuarios';
 import AddUser from './components/adduser'; 
+import EditUser from './components/EditUser'
 
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -75,6 +76,8 @@ function App() {
         <Route path="/politicas-condiciones" element={<PoliticasCondiciones />} />
         <Route path="/usuarios" element={<ViewsUsuarios />} />
         <Route path="/adduser" element={<AddUser />} /> 
+        <Route path="/edituser/:id" element={<EditUser />} />
+
       </Routes>
     </Router>
   );

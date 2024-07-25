@@ -60,8 +60,8 @@ function Organos() {
   };
 
   const handleExport = () => {
-    const salidasConcluidas = salidas.filter(salida => salida.concluida);
-    const salidasPorConcluir = salidas.filter(salida => !salida.concluida);
+    const salidasConcluidas = salidas.filter(salida => salida.estado === 'Concluida');
+    const salidasPorConcluir = salidas.filter(salida => salida.estado !== 'Concluida');
 
     let content = `Salidas Concluidas en la Semana:\n\n`;
     salidasConcluidas.forEach(salida => {
@@ -98,7 +98,7 @@ function Organos() {
           <button onClick={() => handleWeekChange(true)}>Semana Siguiente</button>
         </div>
         <ul>
-          {salidas.filter(salida => !salida.concluida &&
+          {salidas.filter(salida => salida.estado !== 'Concluida' &&
             new Date(salida.fechaSalida) >= startDate && 
             new Date(salida.fechaSalida) <= endDate
           ).map(salida => (

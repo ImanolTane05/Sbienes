@@ -6,11 +6,17 @@ import Welcome from "./components/welcome";
 import PoliticasCondiciones from "./components/politicasCondiciones";
 import ViewsUsuarios from './components/viewsusuarios';
 import AddUser from './components/adduser'; 
-import EditUser from './components/EditUser'
+import EditUser from './components/EditUser';
+import Organos from './components/salidasOrganos'; 
+import AddSalidaOrgano from './components/addsalidaOrgano';
+import InfoSalidaOrgano from "./components/infosalidaOrgano";
+import EditSalida from "./components/EditSalida";
+import SalidasConcluidas from "./components/salidasconcluidas";
 
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -23,12 +29,12 @@ function App() {
     try {
       const docuRef = doc(firestore, `usuarios/${uid}`);
       const docuCifrada = await getDoc(docuRef);
-      return docuCifrada.data()?.rol || "user"; // Devuelve "user" si no hay rol en Firestore
+      return docuCifrada.data()?.rol || "user";
     } catch (error) {
       console.error("Error obteniendo rol:", error);
-      return "user"; // Valor predeterminado en caso de error
+      return "user";
     }
-  }, []); // Aquí se eliminó 'firestore' de las dependencias
+  }, []);
 
   const setUserWithFirebaseAndRol = useCallback(async (usuarioFirebase) => {
     try {
@@ -40,12 +46,11 @@ function App() {
       };
       setUser(userData);
       setLoading(false);
-      console.log("userData final", userData);
     } catch (error) {
       console.error("Error configurando usuario:", error);
       setLoading(false);
     }
-  }, [getRol]); // Aquí se mantiene 'getRol' como dependencia
+  }, [getRol]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
@@ -59,12 +64,11 @@ function App() {
       }
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [user, setUserWithFirebaseAndRol]);
 
   if (loading) {
-    return <div>Cargando...</div>; // Opcional: Añadir un indicador de carga
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -75,8 +79,13 @@ function App() {
         <Route path="/home" element={user ? <Home user={user} /> : <Welcome />} />
         <Route path="/politicas-condiciones" element={<PoliticasCondiciones />} />
         <Route path="/usuarios" element={<ViewsUsuarios />} />
-        <Route path="/adduser" element={<AddUser />} /> 
+        <Route path="/adduser" element={<AddUser />} />
         <Route path="/edituser/:id" element={<EditUser />} />
+        <Route path="/salidas" element={<Organos />} /> 
+        <Route path="/addsalida" element={<AddSalidaOrgano />} />
+        <Route path="/infosalida/:id" element={<InfoSalidaOrgano />} />
+        <Route path="/editSalida/:id" element={<EditSalida />} />
+        <Route path="/salidas-concluidas" element={<SalidasConcluidas />} />
 
       </Routes>
     </Router>

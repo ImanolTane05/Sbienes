@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Welcome from "./components/welcome";
+import PoliticasCondiciones from "./components/politicasCondiciones";
+import ViewsUsuarios from './components/viewsusuarios';
+import AddUser from './components/adduser'; 
 
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -69,6 +72,9 @@ function App() {
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={user ? <Home user={user} /> : <Welcome />} />
+        <Route path="/politicas-condiciones" element={<PoliticasCondiciones />} />
+        <Route path="/usuarios" element={<ViewsUsuarios />} />
+        <Route path="/adduser" element={<AddUser />} /> 
       </Routes>
     </Router>
   );

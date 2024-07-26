@@ -30,7 +30,7 @@ function AdminView({ user }) {
             <FaUsers size={50} />
             <span>Usuarios</span>
           </div>
-          <div className="grid-item" onClick={() => handleNavigation('/entregas')}>
+          <div className="grid-item" onClick={() => handleNavigation('/indexentregas')}>
             <FaShoppingCart size={50} />
             <span>Entregas</span>
           </div>

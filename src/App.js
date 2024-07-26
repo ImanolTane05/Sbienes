@@ -17,6 +17,11 @@ import AddActividad from "./components/addActividades";
 import InfoActividad from "./components/infoactividades"
 import EditActividad from "./components/editactividad";
 import ActConcluidas from "./components/actconcluidas";
+import IndexEntregas from "./components/indexentregas";
+import AddEntregas from "./components/addentregas";
+import EntregasPendientes from './components/entregaspendientes';
+import EntregasConcluidas from './components/entregasConcluidas';
+import InfoEntregas from './components/infoentregas';
 
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -96,6 +101,12 @@ function App() {
         <Route path="/infoactividad/:id" element={<InfoActividad />} />
         <Route path="/editactividad/:id" element={<EditActividad />} />
         <Route path="/actconcluidas" element={<ActConcluidas />} />
+        <Route path="/indexentregas" element={<IndexEntregas />} />
+        <Route path="/addentregas" element={<AddEntregas />} />
+        <Route path="/entregaspendientes" element={<EntregasPendientes />} />
+        <Route path="/entregasconcluidas" element={<EntregasConcluidas />} />
+        <Route path="/infoentrega/:id" element={<InfoEntregas />} />
+        
 
       </Routes>
     </Router>

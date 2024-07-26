@@ -1,3 +1,4 @@
+// src/components/AdminView.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.png';

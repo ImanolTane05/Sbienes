@@ -12,6 +12,11 @@ import AddSalidaOrgano from './components/addsalidaOrgano';
 import InfoSalidaOrgano from "./components/infosalidaOrgano";
 import EditSalida from "./components/EditSalida";
 import SalidasConcluidas from "./components/salidasconcluidas";
+import Actividades from "./components/actividades";
+import AddActividad from "./components/addActividades";
+import InfoActividad from "./components/infoactividades"
+import EditActividad from "./components/editactividad";
+import ActConcluidas from "./components/actconcluidas";
 
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -86,6 +91,11 @@ function App() {
         <Route path="/infosalida/:id" element={<InfoSalidaOrgano />} />
         <Route path="/editSalida/:id" element={<EditSalida />} />
         <Route path="/salidas-concluidas" element={<SalidasConcluidas />} />
+        <Route path="/actividades" element={<Actividades />} />
+        <Route path="/addactividad" element={<AddActividad />} />
+        <Route path="/infoactividad/:id" element={<InfoActividad />} />
+        <Route path="/editactividad/:id" element={<EditActividad />} />
+        <Route path="/actconcluidas" element={<ActConcluidas />} />
 
       </Routes>
     </Router>

@@ -1,4 +1,3 @@
-// src/components/AdminView.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.png';
@@ -10,6 +9,10 @@ function AdminView({ user }) {
 
   const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleGenerateReport = () => {
+    navigate('/reportepending');
   };
 
   return (
@@ -43,6 +46,9 @@ function AdminView({ user }) {
             <span>Actividades</span>
           </div>
         </div>
+        <button className="report-button" onClick={handleGenerateReport}>
+          Generar Reporte de Entregas Pendientes
+        </button>
       </main>
       <footer className="admin-footer">
         <img src={Pie} alt="Footer Decoration" className="footer-decoration" />

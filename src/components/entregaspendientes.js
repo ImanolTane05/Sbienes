@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { saveAs } from 'file-saver';
 
 const firestore = getFirestore();
 
@@ -40,10 +41,28 @@ function EntregasPendientes() {
     navigate(`/infoentrega/${id}`);
   };
 
+  const handleExportPendientes = () => {
+    const startDate = startOfWeek(selectedWeek, { locale: es });
+    const endDate = endOfWeek(selectedWeek, { locale: es });
+
+    const pendientes = entregas.filter(entrega => {
+      const entregaFecha = new Date(entrega.fechaLlegada);
+      return entregaFecha >= startDate && entregaFecha <= endDate && !entrega.completada;
+    });
+
+    let content = `Reporte de Entregas Pendientes (Semana del ${format(startDate, 'dd MMM yyyy', { locale: es })} al ${format(endDate, 'dd MMM yyyy', { locale: es })}):\n\n`;
+
+    pendientes.forEach(entrega => {
+      content += `Nombre del Producto: ${entrega.nombreProducto}\nÁrea Resguardante: ${entrega.areaResguardante}\nNombre del Resguardante: ${entrega.nombreResguardante}\nFecha de Entrega: ${entrega.fechaLlegada}\n\n`;
+    });
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `reporte_entregas_pendientes_${format(startDate, 'yyyyMMdd')}_${format(endDate, 'yyyyMMdd')}.txt`);
+  };
+
   const startDate = startOfWeek(selectedWeek, { locale: es });
   const endDate = endOfWeek(selectedWeek, { locale: es });
 
-  // Asegúrate de que las fechas sean comparables
   const filteredEntregas = entregas.filter(entrega => {
     const entregaFecha = new Date(entrega.fechaLlegada);
     console.log('Comparando fecha:', entregaFecha.toISOString(), 'con rango:', startDate.toISOString(), 'a', endDate.toISOString()); // Verifica la comparación de fechas
@@ -58,6 +77,7 @@ function EntregasPendientes() {
         <span>Semana del {format(startDate, 'dd MMM yyyy', { locale: es })} al {format(endDate, 'dd MMM yyyy', { locale: es })}</span>
         <button onClick={() => handleWeekChange(true)}>Semana Siguiente</button>
       </div>
+      <button onClick={handleExportPendientes}>Generar Reporte de Entregas Pendientes</button>
       <ul>
         {filteredEntregas.length > 0 ? (
           filteredEntregas.map((entrega) => (

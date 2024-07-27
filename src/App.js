@@ -23,6 +23,7 @@ import EntregasPendientes from './components/entregaspendientes';
 import EntregasConcluidas from './components/entregasConcluidas';
 import InfoEntregas from './components/infoentregas';
 
+
 import firebaseApp from "./firebase/credenciales";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -106,6 +107,8 @@ function App() {
         <Route path="/entregaspendientes" element={<EntregasPendientes />} />
         <Route path="/entregasconcluidas" element={<EntregasConcluidas />} />
         <Route path="/infoentrega/:id" element={<InfoEntregas />} />
+        
+        
         
 
       </Routes>

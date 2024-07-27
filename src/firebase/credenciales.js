@@ -9,7 +9,6 @@ const firebaseConfig = {
     storageBucket: "sistemab-1f486.appspot.com",
     messagingSenderId: "452310295220",
     appId: "1:452310295220:web:54614d674a2a54f5aa2de1"
-  
 };
 
 // Inicializamos la aplicación y la guardamos en firebaseApp

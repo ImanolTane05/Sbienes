@@ -19,11 +19,10 @@ header {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
-  background-color: white;
 }
 
 .logo {
-  width: 350px; /* Ajustar el tamaño del logo */
+  width: 350px;
   height: auto;
 }
 
@@ -33,233 +32,101 @@ main {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  padding-bottom: 60px; /* Ajusta este valor según sea necesario */
 }
 
 .content {
   display: flex;
   justify-content: space-between;
-  width: 80%; /* Ajustar el ancho para distribuir mejor */
+  width: 80%;
   max-width: 1200px;
 }
 
 .left-side {
-  flex: 2; /* Ajustar la parte izquierda */
+  flex: 2;
   text-align: left;
-  padding-right: 10px; /* Reducir el padding-right para que el cuadro de la derecha esté menos pegado a la izquierda */
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: -100px; /* Subir el contenido de la izquierda */
+  margin-top: 0; /* Ajusta este valor para bajar el texto de la izquierda */
+  margin-bottom: 40px; /* Ajusta este valor para asegurar espacio para el cuadro de la derecha */
 }
 
 .left-side h1 {
-  font-size: 3em; /* Cambiar el tamaño del texto del título */
+  font-size: 3em;
   font-weight: 690;
-  margin-bottom: 20px; /* Espacio entre el título y el párrafo */
+  margin-bottom: 20px;
 }
 
 .left-side p {
   font-weight: 690;
   color: #7d7b7b;
-  font-size: 1.2em; /* Cambiar el tamaño del texto del párrafo */
+  font-size: 1.2em;
 }
 
 .right-side {
-  flex: 2; /* Hacer más grande el cuadro blanco */
+  flex: 2;
   background-color: white;
-  padding: 40px; /* Ajusta el espacio interno */
+  padding: 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 490px; /* Ancho máximo para el cuadro blanco */
-  min-height: 400px; /* Altura mínima para el cuadro blanco */
+  max-width: 490px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 20px; /* Mover el cuadro blanco más a la derecha */
-  margin-top: -200px; /* Subir el cuadro blanco más */
+  margin-left: 20px;
+  position: relative;
+  top: -20px; /* Ajusta este valor para subir el cuadro de la derecha */
 }
 
-
 .right-side h2 {
-  font-size: 2.5em; /* Aumentar el tamaño del texto del título */
-  font-weight: 700; /* Hacer el texto en negritas */
+  font-size: 2.5em;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.form-group input::placeholder {
+  color: #666;
+  font-weight: 600;
+}
+
 .login-button {
-  border-radius: 5px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 4px;
   background-color: #8A0046;
   font-weight: 620;
   color: white;
   border: none;
-  padding: 20px 40px; /* Hacer más grande el botón */
   cursor: pointer;
-  font-size: 1.5em; /* Hacer más grande el texto del botón */
-  margin: 20px auto; /* Añadir espacio arriba y centrar el botón horizontalmente */
-  display: flex; /* Para alinear el texto y el icono */
-  align-items: center; /* Alinea verticalmente */
-  gap: 10px; /* Espacio entre el texto y el icono */
-  text-align: center; /* Centrar el texto dentro del botón */
-  width: 300px; /* Ajustar el ancho del botón según sea necesario */
-  justify-content: center; /* Asegurar que el contenido esté centrado */
-}
-
-.login-button .text {
-  margin-left: 0; /* Ajustar el margen izquierdo del texto */
-}
-
-.login-button i {
-  margin-left: 0; /* Espacio entre el texto y el icono */
+  font-size: 1em;
+  margin: 20px 0;
 }
 
 .login-button:hover {
   background-color: #600030;
 }
 
-.policies {
-  color: #8A0046; /* Cambiar el color del enlace a vino */
-  text-decoration: none;
-  font-size: 1.3em; /* Aumentar el tamaño del texto */
-  font-weight: 600; /* Hacer el texto más gordito */
-  display: flex; /* Para alinear el texto y el icono */
-  align-items: center; /* Alinea verticalmente */
-  gap: 5px; /* Espacio entre el texto y el icono */
-  justify-content: center; /* Centrar el contenido del enlace */
-  margin-top: 20px; /* Añadir espacio arriba del enlace */
-}
-
-.policies i {
-  margin-left: 0; /* Espacio entre el texto y el icono */
-}
-
-.policies:hover {
-  text-decoration: underline;
-}
-
 .footer-decoration {
-  width: 23%; /* Ajustar el tamaño del pie */
+  width: 23%;
   height: auto;
   position: absolute;
   left: 0;
   bottom: 0;
 }
-
-/* --------------------------------------------------------------------- */
-.form-group {
-  margin-bottom: 20px; /* Espacio entre los campos del formulario */
-}
-
-.form-group input {
-  width: 100%;
-  padding: 15px;
-  border: none; /* Eliminar el contorno */
-  border-radius: 4px;
-  font-size: 1em;
-  background-color: #f0f0f0; /* Fondo gris claro */
-  color: #333; /* Color de letra gris más fuerte */
-}
-
-.form-group input::placeholder {
-  color: #666; /* Color de letra del placeholder */
-  font-weight: 600; /* Hacer el placeholder más gordito */
-}
-/*--------------------------------------------------------*/
-/* Estilos generales */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.admin-panel {
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.admin-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: white;
-}
-
-.logout-button {
-  background-color: transparent;
-  border: none;
-  color: #8A0046;
-  font-size: 1.2em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.logout-button:hover {
-  text-decoration: underline;
-}
-
-.admin-content {
-  flex: 1;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcome-section {
-  margin-bottom: 40px;
-}
-
-.welcome-section h1 {
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.welcome-section p {
-  font-size: 1.2em;
-  color: #7d7b7b;
-}
-
-.button-grid {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.grid-item {
-  background-color: #8A0046;
-  color: white;
-  padding: 40px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-  min-width: 150px;
-  min-height: 150px;
-}
-
-.grid-item span {
-  margin-top: 10px;
-  font-size: 1.2em;
-}
-
-.grid-item:hover {
-  transform: scale(1.05);
-}
-
-.admin-footer {
-  padding: 20px;
-  background-color: #f0f0f0;
-  text-align: center;
-}
-

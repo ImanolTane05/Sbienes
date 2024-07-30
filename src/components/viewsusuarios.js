@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserPlus, FaEdit, FaTrash } from 'react-icons/fa'; // Importa los iconos para los botones
+import { FaUserPlus, FaEdit, FaTrash, FaArrowCircleLeft } from 'react-icons/fa'; // Importa los iconos para los botones
 import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import firebaseApp from '../firebase/credenciales'; // Asegúrate de importar la configuración de Firebase
+import logo from '../img/logo.png';
+import Pie from '../img/Pie.png';
+import '../styles/usuarios.css';
 
 const firestore = getFirestore(firebaseApp);
 
@@ -42,12 +45,21 @@ function ViewsUsuarios() {
     }
   };
 
+  const handleBackClick = () => {
+    navigate('/adminview'); // Redirige a la página de administración
+  };
+
   return (
-    <div>
-      <header>
-        <h1>Usuarios</h1>
+    <div className="add-user-panel">
+      <header className="add-user-header">
+        <img src={logo} alt="Logo" className="logo" />
+        <h1 className="header-title">Usuarios</h1>
+        <button className="back-button" onClick={handleBackClick}>
+          <FaArrowCircleLeft size={20} />
+          Regresar
+        </button>
       </header>
-      <main>
+      <main className="add-user-content">
         <button className="add-user-button" onClick={handleAddUserClick}>
           <FaUserPlus size={20} />
           Agregar Usuario
@@ -58,7 +70,7 @@ function ViewsUsuarios() {
           ) : (
             usuarios.map(usuario => (
               <div key={usuario.id} className="usuario-card">
-                <img src={usuario.fotoPerfil || 'default-profile.png'} alt={`${usuario.nombre} ${usuario.apellidoPaterno}`} className="usuario-photo" />
+                <img src={usuario.foto || 'default-profile.png'} alt={`${usuario.nombre} ${usuario.apellidoPaterno}`} className="usuario-photo" />
                 <div className="usuario-info">
                   <h3>{usuario.nombre} {usuario.apellidoPaterno} {usuario.apellidoMaterno}</h3>
                   <p>Correo: {usuario.email}</p>
@@ -79,6 +91,9 @@ function ViewsUsuarios() {
           )}
         </div>
       </main>
+      <footer className="add-user-footer">
+        <img src={Pie} alt="Footer Decoration" className="footer-decoration" />
+      </footer>
     </div>
   );
 }

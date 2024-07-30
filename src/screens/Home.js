@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminView from "../components/AdminView";
 import UserView from "../components/UserViews";
 import firebaseApp from "../firebase/credenciales";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const auth = getAuth(firebaseApp);
@@ -38,18 +38,8 @@ function Home() {
     return () => unsubscribe();
   }, []);
 
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error.message);
-    }
-  };
-
   return (
     <div>
-      <h1>Home</h1>
-      <button onClick={handleSignOut}>Cerrar sesión</button>
       {user ? <AdminView user={user} /> : <UserView />}
     </div>
   );

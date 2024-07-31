@@ -7,7 +7,7 @@ import firebaseApp from "../firebase/credenciales";
 import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
 import { FaUsers, FaShoppingCart, FaBook, FaCalendarAlt, FaSignOutAlt, FaFileAlt } from 'react-icons/fa';
-import '../styles/admin.css';
+import styles from '../styles/admin.module.css'; // Importando estilos como módulo
 
 const firestore = getFirestore(firebaseApp);
 
@@ -90,45 +90,45 @@ function AdminView({ user }) {
   };
 
   return (
-    <div className="admin-panel">
-      <header className="admin-header">
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="header-buttons">
-          <button className="report-button" onClick={generateReport}>
+    <div className={styles.adminPanel}>
+      <header className={styles.adminHeader}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <div className={styles.headerButtons}>
+          <button className={styles.reportButton} onClick={generateReport}>
             Generar Reporte <FaFileAlt />
           </button>
-          <button className="logout-button" onClick={() => handleNavigation('/login')}>
+          <button className={styles.logoutButton} onClick={() => handleNavigation('/login')}>
             Cerrar Sesión <FaSignOutAlt />
           </button>
         </div>
       </header>
-      <main className="admin-content">
-        <div className="welcome-section">
+      <main className={styles.adminContent}>
+        <div className={styles.welcomeSection}>
           <h1>Bienvenido {user ? user.nombre : "Invitado"}</h1>
-          <hr className="welcome-divider" />
+          <hr className={styles.welcomeDivider} />
           <p>Atendiendo una necesidad urgente de modernizar<br />la administración de Justicia</p>
         </div>
-        <div className="button-grid">
-          <div className="grid-item users" onClick={() => handleNavigation('/usuarios')}>
+        <div className={styles.buttonGrid}>
+          <div className={`${styles.gridItem} ${styles.users}`} onClick={() => handleNavigation('/usuarios')}>
             <FaUsers size={50} />
             <span>Usuarios</span>
           </div>
-          <div className="grid-item deliveries" onClick={() => handleNavigation('/indexentregas')}>
+          <div className={`${styles.gridItem} ${styles.deliveries}`} onClick={() => handleNavigation('/indexentregas')}>
             <FaShoppingCart size={50} />
             <span>Entregas</span>
           </div>
-          <div className="grid-item exits" onClick={() => handleNavigation('/salidas')}>
+          <div className={`${styles.gridItem} ${styles.exits}`} onClick={() => handleNavigation('/salidas')}>
             <FaBook size={50} />
             <span>Salidas</span>
           </div>
-          <div className="grid-item activities" onClick={() => handleNavigation('/actividades')}>
+          <div className={`${styles.gridItem} ${styles.activities}`} onClick={() => handleNavigation('/actividades')}>
             <FaCalendarAlt size={50} />
             <span>Actividades</span>
           </div>
         </div>
       </main>
-      <footer className="admin-footer">
-        <img src={Pie} alt="Decoración de pie de página" className="footer-decoration" />
+      <footer className={styles.adminFooter}>
+        <img src={Pie} alt="Decoración de pie de página" className={styles.footerDecoration} />
       </footer>
     </div>
   );

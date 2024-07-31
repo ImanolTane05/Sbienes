@@ -42,7 +42,7 @@ main {
   max-width: 1200px;
 }
 
-.left-side {
+.leftSide {
   flex: 2;
   text-align: left;
   padding-right: 10px;
@@ -53,19 +53,19 @@ main {
   margin-bottom: 40px; /* Ajusta este valor para asegurar espacio para el cuadro de la derecha */
 }
 
-.left-side h1 {
+.leftSide h1 {
   font-size: 3em;
   font-weight: 690;
   margin-bottom: 20px;
 }
 
-.left-side p {
+.leftSide p {
   font-weight: 690;
   color: #7d7b7b;
   font-size: 1.2em;
 }
 
-.right-side {
+.rightSide {
   flex: 2;
   background-color: white;
   padding: 40px;
@@ -78,20 +78,20 @@ main {
   justify-content: center;
   margin-left: 20px;
   position: relative;
-  top: -20px; /* Ajusta este valor para subir el cuadro de la derecha */
+  top: -100px; /* Ajusta este valor para subir el cuadro de la derecha */
 }
 
-.right-side h2 {
+.rightSide h2 {
   font-size: 2.5em;
   font-weight: 700;
   margin-bottom: 20px;
 }
 
-.form-group {
+.formGroup {
   margin-bottom: 20px;
 }
 
-.form-group input {
+.formGroup input {
   width: 100%;
   padding: 15px;
   border: none;
@@ -101,12 +101,12 @@ main {
   color: #333;
 }
 
-.form-group input::placeholder {
+.formGroup input::placeholder {
   color: #666;
   font-weight: 600;
 }
 
-.login-button {
+.loginButton {
   width: 100%;
   padding: 15px;
   border-radius: 4px;
@@ -119,14 +119,24 @@ main {
   margin: 20px 0;
 }
 
-.login-button:hover {
+.loginButton:hover {
   background-color: #600030;
 }
 
-.footer-decoration {
+.footerDecoration {
   width: 23%;
   height: auto;
   position: absolute;
   left: 0;
   bottom: 0;
+}
+
+.policies {
+  text-decoration: none;
+  color: inherit;
+}
+
+.text {
+  display: inline-block;
+  margin-right: 8px;
 }

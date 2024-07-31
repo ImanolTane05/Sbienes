@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import styles from '../App.module.css'; // Importa los estilos como un módulo CSS
 import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
-import '../App.css';
 
 const auth = getAuth(firebaseApp);
 
@@ -19,7 +19,7 @@ function Login() {
 
     setError(""); 
 
-    // Login esquelo 
+    // Login esquema
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/home"); 
@@ -30,26 +30,26 @@ function Login() {
   }
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <header>
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className={styles.logo} />
       </header>
       <main>
-        <div className="content">
-          <div className="left-side">
+        <div className={styles.content}>
+          <div className={styles.leftSide}>
             <h1>Departamento de Control de Bienes Muebles e Inmuebles</h1>
             <p>Sistema de Gestión de Entregas y Actividades del Departamento de Control de Bienes Muebles e Inmuebles del Poder Judicial del Estado de Tlaxcala</p>
           </div>
-          <div className="right-side">
+          <div className={styles.rightSide}>
             <h2>Inicia sesión</h2>
             <form onSubmit={submitHandler}>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <input type="email" id="email" placeholder="Correo electrónico" required />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <input type="password" id="password" placeholder="Contraseña" required />
               </div>
-              <button type="submit" className="login-button">
+              <button type="submit" className={styles.loginButton}>
                 Iniciar sesión
               </button>
             </form>
@@ -58,7 +58,7 @@ function Login() {
         </div>
       </main>
       <footer>
-        <img src={Pie} alt="Footer Decoration" className="footer-decoration" />
+        <img src={Pie} alt="Footer Decoration" className={styles.footerDecoration} />
       </footer>
     </div>
   );

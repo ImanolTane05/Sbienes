@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import styles from '../App.module.css'; // Importa los estilos como un módulo CSS
 import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
 
-function App() {
+function Welcome() {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -12,34 +12,33 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <header>
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className={styles.logo} />
       </header>
       <main>
-        <div className="content">
-          <div className="left-side">
+        <div className={styles.content}>
+          <div className={styles.leftSide}>
             <h1>Departamento de Control de Bienes Muebles e Inmuebles</h1>
             <p>Sistema de Gestión de Entregas y Actividades del Departamento de Control de Bienes Muebles e Inmuebles del Poder Judicial del Estado de Tlaxcala</p>
           </div>
-          <div className="right-side">
+          <div className={styles.rightSide}>
             <h2>Inicio de Sesión</h2>
-            <button className="login-button" onClick={handleLoginClick}>
-              <span className="text">Iniciar Sesión</span> <i className="fa fa-arrow-circle-right"></i>
+            <button className={styles.loginButton} onClick={handleLoginClick}>
+              <span className={styles.text}>Iniciar Sesión</span> <i className="fa fa-arrow-circle-right"></i>
             </button>
             <p>Gestión Transparente, Justicia Segura para el Estado de Tlaxcala</p>
-            <a href="/politicas-condiciones" className="policies">
-            Políticas y Condiciones <i className="fa fa-arrow-circle-right"></i>
+            <a href="/politicas-condiciones" className={styles.policies}>
+              Políticas y Condiciones <i className="fa fa-arrow-circle-right"></i>
             </a>
-
           </div>
         </div>
       </main>
       <footer>
-        <img src={Pie} alt="Footer Decoration" className="footer-decoration" />
+        <img src={Pie} alt="Footer Decoration" className={styles.footerDecoration} />
       </footer>
     </div>
   );
 }
 
-export default App;
+export default Welcome;

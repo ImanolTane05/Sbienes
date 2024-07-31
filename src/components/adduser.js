@@ -16,7 +16,8 @@ const storage = getStorage(firebaseApp);
 
 function AddUser() {
   const [nombre, setNombre] = useState('');
-  const [apellidos, setApellidos] = useState('');
+  const [apellidoPaterno, setApellidoPaterno] = useState('');
+  const [apellidoMaterno, setApellidoMaterno] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rol, setRol] = useState('user');
@@ -55,7 +56,8 @@ function AddUser() {
         const userRef = doc(firestore, `usuarios/${user.uid}`);
         await setDoc(userRef, {
           nombre,
-          apellidos,
+          apellidoPaterno,
+          apellidoMaterno,
           email,
           rol,
           foto: fotoUrl,
@@ -135,9 +137,16 @@ function AddUser() {
           />
           <input
             type="text"
-            value={apellidos}
-            onChange={(e) => setApellidos(e.target.value)}
-            placeholder="Apellidos"
+            value={apellidoPaterno}
+            onChange={(e) => setApellidoPaterno(e.target.value)}
+            placeholder="Apellido Paterno"
+            required
+          />
+          <input
+            type="text"
+            value={apellidoMaterno}
+            onChange={(e) => setApellidoMaterno(e.target.value)}
+            placeholder="Apellido Materno"
             required
           />
           <input

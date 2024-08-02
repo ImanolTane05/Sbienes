@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from "date-fns";
 import { es } from "date-fns/locale";
-import Calendar from "react-calendar";
+import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import logo from '../img/logo.png';
+import Pie from '../img/Pie.png';
+import styles from '../styles/activ.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus, faArrowLeft, faFileExport, faToggleOn, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const firestore = getFirestore();
 
 function Actividades() {
   const [actividades, setActividades] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState(new Date());
-  const [viewConcluidas, setViewConcluidas] = useState(false); // Estado para controlar la vista de actividades concluidas
-  const [date] = useState(new Date()); // Fecha actual
+  const [viewConcluidas, setViewConcluidas] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,7 +79,17 @@ function Actividades() {
   };
 
   const handleViewActividad = (id) => {
-    navigate(`/infoactividad/${id}`);
+    if (!viewConcluidas) {
+      navigate(`/infoactividad/${id}`);
+    }
+  };
+
+  const handleAddActividad = () => {
+    navigate('/addactividad');
+  };
+
+  const toggleViewConcluidas = () => {
+    setViewConcluidas(prevViewConcluidas => !prevViewConcluidas);
   };
 
   const startDate = startOfWeek(selectedWeek, { locale: es });
@@ -94,39 +108,62 @@ function Actividades() {
       );
 
   return (
-    <div>
-      <h1>Actividades</h1>
-      <div>
-        <button onClick={() => navigate('/addactividad')}>Añadir Actividad</button>
-        <button onClick={() => setViewConcluidas(false)}>Actividades No Concluidas</button>
-        <button onClick={() => setViewConcluidas(true)}>Actividades Concluidas</button>
-        <button onClick={handleExport}>Exportar Actividades</button>
-      </div>
-      <div>
-        <h2>Lista de Actividades</h2>
-        <div>
-          <button onClick={() => handleWeekChange(false)}>Semana Anterior</button>
-          <span>Semana del {format(startDate, 'dd MMM yyyy', { locale: es })} al {format(endDate, 'dd MMM yyyy', { locale: es })}</span>
-          <button onClick={() => handleWeekChange(true)}>Semana Siguiente</button>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <h1 className={styles.title}>Extras</h1>
+        <div className={styles.headerButtons}>
+          <button className={styles.addButton} onClick={handleAddActividad}>
+            <FontAwesomeIcon icon={faCirclePlus} /> Agregar
+          </button>
+          <button className={styles.regresarButton} onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowLeft} /> Regresar
+          </button>
+          <button className={styles.exportButton} onClick={handleExport}>
+            <FontAwesomeIcon icon={faFileExport} /> Exportar
+          </button>
+          <button className={styles.toggleButton} onClick={toggleViewConcluidas}>
+            <FontAwesomeIcon icon={faToggleOn} /> {viewConcluidas ? 'Ver No Concluidas' : 'Ver Concluidas'}
+          </button>
         </div>
-        <ul>
-          {filteredActividades.map((actividad) => (
-            <li key={actividad.id}>
-              <strong>Título:</strong> {actividad.titulo}<br />
-              <strong>Asunto:</strong> {actividad.asunto}<br />
-              <strong>Prioridad:</strong> {actividad.prioridad}<br />
-              <strong>Fecha:</strong> {actividad.fecha}<br />
-              {!viewConcluidas && (
-                <button onClick={() => handleViewActividad(actividad.id)}>Ver Detalles</button>
-              )}
-            </li>
-          ))}
-        </ul>
+      </header>
+      <div className={styles.mainContent}>
+        <div className={styles.calendarContainer}>
+          <Calendar className={styles.calendar} />
+        </div>
+        <div className={styles.activitiesContainer}>
+          <div className={styles.weekNavigator}>
+            <button className={styles.weekButton} onClick={() => handleWeekChange(false)}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+            <span className={styles.weekText}>
+              {format(startDate, 'dd/MM/yyyy', { locale: es })} - {format(endDate, 'dd/MM/yyyy', { locale: es })}
+            </span>
+            <button className={styles.weekButton} onClick={() => handleWeekChange(true)}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
+          <div className={styles.activities}>
+            {filteredActividades.map((actividad) => (
+              <div
+                key={actividad.id}
+                className={`${styles.activityCard} ${actividad.concluida ? styles.activityCardDisabled : ''}`}
+                onClick={() => handleViewActividad(actividad.id)}
+              >
+                <div className={styles.activityDate}>{actividad.fecha}</div>
+                <div className={styles.activityTitle}>{actividad.titulo}</div>
+                <div className={styles.activityContent}>
+                  <p>{actividad.asunto}</p>
+                  <p>Prioridad: {actividad.prioridad}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div> 
       </div>
-      <div>
-        <h3>Fecha Actual</h3>
-        <Calendar value={date} />
-      </div>
+      <footer className={styles.footer}>
+        <img src={Pie} alt="Footer Decoration" className={styles.footerDecoration} />
+      </footer>
     </div>
   );
 }

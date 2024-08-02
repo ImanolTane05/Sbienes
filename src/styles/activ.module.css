@@ -1,0 +1,377 @@
+/* Estilos existentes */
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Cambia a space-between para ajustar el espacio entre el botón y el logo */
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.logo {
+  width: 350px;
+  height: auto;
+}
+
+.title {
+  text-align: center; /* Asegura que el texto esté centrado */
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0;
+  flex: 1; /* Permite que el título ocupe el espacio disponible */
+  margin-left: -250px; /* Ajusta este valor según sea necesario para mover ligeramente el título a la izquierda */
+}
+
+.cancelButton {
+  position: absolute;
+  top: 60px; /* Ajusta este valor para mover el botón hacia abajo */
+  right: 30px; /* Ajusta este valor para alejar el botón de la derecha */
+  background-color: transparent;
+  border: none;
+  color: #8A0046; /* Color vino */
+  font-size: 1.4em; /* Aumenta el tamaño de la fuente */
+  font-weight: 700; /* Hace el texto más grueso */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.cancelButton i {
+  margin-right: 8px;
+  font-size: 1.5em; /* Aumenta el tamaño del icono */
+}
+
+.cancelButton:hover {
+  color: #600030; /* Cambia el color del texto al pasar el ratón */
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+}
+
+.addButton,
+.regresarButton,
+.exportButton,
+.toggleButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  background-color: transparent; /* Sin fondo para solo mostrar el texto */
+  color: #8A0046; /* Color vino */
+  display: flex;
+  align-items: center;
+}
+
+.addButton i,
+.regresarButton i,
+.exportButton i,
+.toggleButton i {
+  margin-right: 8px;
+  font-size: 1.5em; /* Aumenta el tamaño del icono */
+}
+
+.addButton:hover,
+.regresarButton:hover,
+.exportButton:hover,
+.toggleButton:hover {
+  color: #600030; /* Cambia el color del texto al pasar el ratón */
+}
+
+.mainContent {
+  display: flex;
+  justify-content: space-between; /* Distribuir espacio entre calendario y actividades */
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.calendarContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-right: 20px; /* Separación entre el calendario y las actividades */
+}
+
+.calendar {
+  border: 1px solid #8A0046;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background-color: white;
+}
+
+.react-calendar {
+  border: none;
+  width: 100%;
+  max-width: 100%; /* Asegura que el calendario no se expanda más allá del contenedor */
+}
+
+.react-calendar__tile {
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1em; /* Ajusta el tamaño del texto dentro de las casillas */
+}
+
+.react-calendar__tile--now {
+  background: #8A0046;
+  color: white;
+}
+
+.react-calendar__tile--active {
+  background: #600030;
+  color: white;
+}
+
+.react-calendar__tile--hasActive:hover,
+.react-calendar__tile--active:hover {
+  background: #600030;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.react-calendar__navigation button {
+  color: #8A0046;
+  font-size: 1.2em; /* Ajusta el tamaño de los botones de navegación */
+}
+
+.react-calendar__month-view__weekdays {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  color: #8A0046;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d9534f;
+}
+
+.activitiesContainer {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinear el contenido a la derecha */
+}
+
+.weekNavigator {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones y el texto a la derecha */
+  align-items: center;
+  margin-bottom: 20px; /* Espacio entre la navegación de la semana y las actividades */
+}
+
+.weekButton {
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: #8A0046;
+  color: white;
+  font-size: 1.5em; /* Aumenta el tamaño del botón */
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.weekButton i {
+  margin: 0;
+  font-size: 1.5em; /* Aumenta el tamaño del icono en el botón */
+}
+
+.weekText {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0 10px;
+}
+
+.activities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Alinear las actividades a la izquierda */
+}
+
+.activityCard {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.activityDate {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.activityTitle {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #8A0046;
+}
+
+.activityContent p {
+  margin: 5px 0;
+}
+
+.footer {
+  position: relative;
+  margin-top: auto;
+}
+
+.footerDecoration {
+  width: 23%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+/* Nuevos estilos para la información de la actividad y botones */
+.infoSection {
+  padding: 20px;
+  text-align: left; /* Alinea el texto a la izquierda */
+  font-size: 1.2em;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.infoSection p {
+  margin: 10px 0;
+}
+
+.infoSection strong {
+  color: #8A0046; /* Color vino para los labels */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Centra los botones */
+  gap: 10px; /* Espacio entre botones */
+  margin-top: 20px;
+}
+
+.concludeButton,
+.deleteButton,
+.editButton {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.concludeButton {
+  background-color: #fdddb4; /* Verde para concluir */
+}
+
+.concludeButton:hover {
+  background-color: #a09da6; /* Verde más oscuro */
+}
+
+.deleteButton {
+  background-color: #bf382e; /* Rojo para eliminar */
+}
+
+.deleteButton:hover {
+  background-color: #8d2922; /* Rojo más oscuro */
+}
+
+.editButton {
+  background-color: #ccb5bb; /* Azul para editar */
+}
+
+.editButton:hover {
+  background-color: #a08f94; /* Azul más oscuro */
+}
+
+/* Nuevos estilos para el formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  text-align: left;
+  width: 100%;
+  max-width: 800px; /* Ajusta el ancho máximo según sea necesario */
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #8A0046; /* Color vino */
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #8A0046;
+  border-radius: 10px;
+  font-size: 1.2em;
+  background-color: #f8f8f8;
+  color: #8A0046; /* Color vino */
+  font-weight: 600;
+}
+
+.formGroup input::placeholder,
+.formGroup select::placeholder {
+  color: #8A0046; /* Color vino */
+}
+
+.submitButton {
+  padding: 15px 30px;
+  border: 2px solid #8A0046;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #8A0046; /* Color vino */
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #8A0046;
+  color: white;
+}

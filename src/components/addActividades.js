@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import firebaseApp from "../firebase/credenciales"; // Asegúrate de que esta ruta es correcta
+import logo from '../img/logo.png';
+import Pie from '../img/Pie.png';
+import styles from '../styles/activ.module.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importa SweetAlert
 
 const firestore = getFirestore(firebaseApp);
 
@@ -9,6 +14,11 @@ function AddActividad() {
   const [asunto, setAsunto] = useState("");
   const [prioridad, setPrioridad] = useState("");
   const [fecha, setFecha] = useState("");
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    navigate('/actividades'); // Redirige a la página de actividades
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,18 +31,37 @@ function AddActividad() {
         fecha,
         concluida: false, // Por defecto, la actividad no está concluida
       });
-      // Redirige al usuario a la vista de actividades después de agregar la actividad
-      window.location.href = "/actividades";
+      // Muestra la alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Actividad agregada',
+        text: 'La actividad se ha agregado con éxito.',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        navigate("/actividades"); // Redirige a la vista de actividades
+      });
     } catch (error) {
       console.error("Error añadiendo actividad:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ocurrió un error al agregar la actividad.',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
 
   return (
-    <div>
-      <h1>Añadir Actividad</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <button className={styles.cancelButton} onClick={handleCancel}>
+          <i className="fa-times"></i> Cancelar
+        </button>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <h1 className={styles.title}>Añadir Actividad</h1>
+      </header>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
           <label>Título:</label>
           <input
             type="text"
@@ -41,7 +70,7 @@ function AddActividad() {
             required
           />
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label>Asunto:</label>
           <input
             type="text"
@@ -50,7 +79,7 @@ function AddActividad() {
             required
           />
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label>Prioridad:</label>
           <select
             value={prioridad}
@@ -63,7 +92,7 @@ function AddActividad() {
             <option value="Baja">Baja</option>
           </select>
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label>Fecha:</label>
           <input
             type="date"
@@ -72,8 +101,11 @@ function AddActividad() {
             required
           />
         </div>
-        <button type="submit">Añadir Actividad</button>
+        <button type="submit" className={styles.submitButton}>Añadir Actividad</button>
       </form>
+      <footer className={styles.footer}>
+        <img src={Pie} alt="Footer Decoration" className={styles.footerDecoration} />
+      </footer>
     </div>
   );
 }

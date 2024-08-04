@@ -1,6 +1,4 @@
-/* Estilos existentes */
-
-
+/* Estilos globales */
 * {
   margin: 0;
   padding: 0;
@@ -15,14 +13,15 @@
   flex-direction: column;
 }
 
+/* Estilos del header */
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Cambia a space-between para ajustar el espacio entre el botón y el logo */
+  justify-content: space-between;
   padding: 20px;
   color: rgb(0, 0, 0);
   position: relative;
-} 
+}
 
 .logo {
   width: 350px;
@@ -30,23 +29,23 @@
 }
 
 .title {
-  text-align: center; /* Asegura que el texto esté centrado */
+  text-align: center;
   font-size: 2em;
   font-weight: 700;
   margin: 0;
-  flex: 1; /* Permite que el título ocupe el espacio disponible */
-  margin-left: -250px; /* Ajusta este valor según sea necesario para mover ligeramente el título a la izquierda */
+  flex: 1;
+  margin-left: -250px;
 }
 
 .cancelButton {
   position: absolute;
-  top: 60px; /* Ajusta este valor para mover el botón hacia abajo */
-  right: 30px; /* Ajusta este valor para alejar el botón de la derecha */
+  top: 60px;
+  right: 30px;
   background-color: transparent;
   border: none;
   color: #8A0046; /* Color vino */
-  font-size: 1.4em; /* Aumenta el tamaño de la fuente */
-  font-weight: 700; /* Hace el texto más grueso */
+  font-size: 1.4em;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -54,13 +53,14 @@
 
 .cancelButton i {
   margin-right: 8px;
-  font-size: 1.5em; /* Aumenta el tamaño del icono */
+  font-size: 1.5em;
 }
 
 .cancelButton:hover {
-  color: #600030; /* Cambia el color del texto al pasar el ratón */
+  color: #600030; /* Color vino oscuro */
 }
 
+/* Estilos del header de botones */
 .headerButtons {
   display: flex;
   align-items: center;
@@ -98,6 +98,7 @@
   color: #600030; /* Cambia el color del texto al pasar el ratón */
 }
 
+/* Estilos del contenido principal */
 .mainContent {
   display: flex;
   justify-content: space-between; /* Distribuir espacio entre calendario y actividades */
@@ -172,6 +173,7 @@
   color: #d9534f;
 }
 
+/* Estilos de las actividades */
 .activitiesContainer {
   flex: 2;
   display: flex;
@@ -239,6 +241,7 @@
   margin: 5px 0;
 }
 
+/* Estilos del footer */
 .footer {
   position: relative;
   margin-top: auto;
@@ -252,7 +255,7 @@
   bottom: 0;
 }
 
-/* Nuevos estilos para la información de la actividad y botones */
+/* Estilos para la información de la actividad y botones */
 .infoSection {
   padding: 20px;
   text-align: left; /* Alinea el texto a la izquierda */
@@ -317,7 +320,7 @@
   background-color: #a08f94; /* Azul más oscuro */
 }
 
-/* Nuevos estilos para el formulario */
+/* Nuevos estilos para el formulario de AddSalidas */
 .form {
   display: flex;
   flex-direction: column;
@@ -343,13 +346,13 @@
 }
 
 .formGroup input,
-.formGroup select {
+.formGroup select,
+.formGroup textarea {
   width: 100%;
-  padding: 15px;
-  border: 2px solid #8A0046;
+  padding: 10px;
+  border: 2px solid #8A0046; /* Contorno color vino */
   border-radius: 10px;
   font-size: 1.2em;
-  background-color: #f8f8f8;
   color: #8A0046; /* Color vino */
   font-weight: 600;
 }
@@ -357,6 +360,18 @@
 .formGroup input::placeholder,
 .formGroup select::placeholder {
   color: #8A0046; /* Color vino */
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px;
 }
 
 .submitButton {
@@ -372,6 +387,22 @@
 }
 
 .submitButton:hover {
-  background-color: #8A0046;
+  background-color: #8A0046; /* Color vino */
   color: white;
+}
+
+.cancelButton {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #8A0046; /* Color vino */
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.cancelButton:hover {
+  color: #600030; /* Color vino oscuro */
 }

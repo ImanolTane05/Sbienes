@@ -5,15 +5,20 @@ import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns';
 import { es } from 'date-fns/locale';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import logo from '../img/logo.png';
+import Pie from '../img/Pie.png';
+import styles from '../styles/salidas.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus, faFileExport, faToggleOn, faChevronLeft, faChevronRight, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const firestore = getFirestore();
 
 function Salidas() {
   const [salidas, setSalidas] = useState([]);
-  const [usuarios, setUsuarios] = useState({}); // Mapa de IDs a nombres de usuarios
-  const [selectedWeek, setSelectedWeek] = useState(new Date()); // Semana seleccionada
-  const [viewConcluidas, setViewConcluidas] = useState(false); // Estado para controlar la vista de salidas concluidas
-  const [date] = useState(new Date()); // Fecha actual
+  const [usuarios, setUsuarios] = useState({});
+  const [selectedWeek, setSelectedWeek] = useState(new Date());
+  const [viewConcluidas, setViewConcluidas] = useState(false);
+  const [date] = useState(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,8 +55,10 @@ function Salidas() {
     fetchUsuarios();
   }, []);
 
-  const handleViewSalida = (id) => {
-    navigate(`/infosalida/${id}`);
+  const handleViewSalida = (id, estado) => {
+    if (estado !== 'Concluida') {
+      navigate(`/infosalida/${id}`);
+    }
   };
 
   const handleWeekChange = (increment) => {
@@ -109,38 +116,62 @@ function Salidas() {
       );
 
   return (
-    <div>
-      <h1>Órganos de Salidas</h1>
-      <p>Contenido de la vista de salidas.</p>
-      <button onClick={() => navigate('/addsalida')}>Agregar Salida</button>
-      <button onClick={() => setViewConcluidas(false)}>Ver Salidas No Concluidas</button>
-      <button onClick={() => setViewConcluidas(true)}>Ver Salidas Concluidas</button>
-      <button onClick={handleExport}>Exportar Datos</button>
-      <div>
-        <h2>Lista de Salidas</h2>
-        <div>
-          <button onClick={() => handleWeekChange(false)}>Semana Anterior</button>
-          <span>Semana del {format(startDate, 'dd MMM yyyy', { locale: es })} al {format(endDate, 'dd MMM yyyy', { locale: es })}</span>
-          <button onClick={() => handleWeekChange(true)}>Semana Siguiente</button>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <div className={styles.headerButtons}>
+          <button className={styles.addButton} onClick={() => navigate('/addsalida')}>
+            <FontAwesomeIcon icon={faCirclePlus} /> Agregar
+          </button>
+          <button className={styles.regresarButton} onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowAltCircleLeft} /> Regresar
+          </button>
+          <button className={styles.exportButton} onClick={handleExport}>
+            <FontAwesomeIcon icon={faFileExport} /> Exportar
+          </button>
+          <button className={styles.toggleButton} onClick={() => setViewConcluidas(!viewConcluidas)}>
+            <FontAwesomeIcon icon={faToggleOn} /> {viewConcluidas ? 'Ver No Concluidas' : 'Ver Concluidas'}
+          </button>
         </div>
-        <ul>
-          {filteredSalidas.map(salida => (
-            <li key={salida.id}>
-              <strong>Fecha de Salida:</strong> {salida.fechaSalida}<br />
-              <strong>Resguardante:</strong> {usuarios[salida.resguardante] || 'Desconocido'}<br />
-              <strong>Órgano Foráneo:</strong> {salida.organoForaneo}<br />
-              <strong>Motivo:</strong> {salida.motivo}<br />
-              {!viewConcluidas && (
-                <button onClick={() => handleViewSalida(salida.id)}>Ver Detalles</button>
-              )}
-            </li>
-          ))}
-        </ul>
+      </header>
+      <div className={styles.mainContent}>
+        <div className={styles.calendarContainer}>
+          <Calendar value={date} />
+        </div>
+        <div className={styles.activitiesContainer}>
+          <div className={styles.weekNavigator}>
+            <button className={styles.weekButton} onClick={() => handleWeekChange(false)}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+            <span className={styles.weekText}>
+              {format(startDate, 'dd/MM/yyyy', { locale: es })} - {format(endDate, 'dd/MM/yyyy', { locale: es })}
+            </span>
+            <button className={styles.weekButton} onClick={() => handleWeekChange(true)}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
+          <div className={styles.activities}>
+            {filteredSalidas.map((salida) => (
+              <div
+                key={salida.id}
+                className={`${styles.activityCard} ${salida.estado === 'Concluida' ? styles.activityCardDisabled : ''}`}
+                onClick={() => handleViewSalida(salida.id, salida.estado)}
+                style={{ cursor: salida.estado === 'Concluida' ? 'not-allowed' : 'pointer' }}
+              >
+                <div className={styles.activityDate}>{salida.fechaSalida}</div>
+                <div className={styles.activityTitle}>Resguardante: {usuarios[salida.resguardante] || 'Desconocido'}</div>
+                <div className={styles.activityContent}>
+                  <p>Órgano Foráneo: {salida.organoForaneo}</p>
+                  <p>Motivo: {salida.motivo}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div> 
       </div>
-      <div>
-        <h3>Fecha Actual</h3>
-        <Calendar value={date} />
-      </div>
+      <footer className={styles.footer}>
+        <img src={Pie} alt="Footer Decoration" className={styles.footerDecoration} />
+      </footer>
     </div>
   );
 }

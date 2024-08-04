@@ -38,9 +38,13 @@ function Home() {
     return () => unsubscribe();
   }, []);
 
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
-      {user ? <AdminView user={user} /> : <UserView />}
+      {user.rol === "admin" ? <AdminView user={user} /> : <UserView user={user} />}
     </div>
   );
 }

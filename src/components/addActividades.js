@@ -3,7 +3,7 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import firebaseApp from "../firebase/credenciales"; // Asegúrate de que esta ruta es correcta
 import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
-import styles from '../styles/activ.module.css';
+import styles from '../styles/activ.module.css'; 
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importa SweetAlert
 

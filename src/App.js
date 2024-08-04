@@ -22,6 +22,7 @@ import AddEntregas from "./components/addentregas";
 import EntregasPendientes from './components/entregaspendientes';
 import EntregasConcluidas from './components/entregasConcluidas';
 import InfoEntregas from './components/infoentregas';
+import AdminView from './components/AdminView';
 
 
 import firebaseApp from "./firebase/credenciales";
@@ -107,6 +108,7 @@ function App() {
         <Route path="/entregaspendientes" element={<EntregasPendientes />} />
         <Route path="/entregasconcluidas" element={<EntregasConcluidas />} />
         <Route path="/infoentrega/:id" element={<InfoEntregas />} />
+        <Route path="/admin" element={<AdminView />} />
         
         
         

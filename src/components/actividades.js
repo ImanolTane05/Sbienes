@@ -9,7 +9,7 @@ import logo from '../img/logo.png';
 import Pie from '../img/Pie.png';
 import styles from '../styles/activ.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faArrowLeft, faFileExport, faToggleOn, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faFileExport, faToggleOn, faChevronLeft, faChevronRight, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const firestore = getFirestore();
 
@@ -88,6 +88,10 @@ function Actividades() {
     navigate('/addactividad');
   };
 
+  const handleBackClick = () => {
+    navigate(-1);  // Navegar a la página anterior
+  };
+
   const toggleViewConcluidas = () => {
     setViewConcluidas(prevViewConcluidas => !prevViewConcluidas);
   };
@@ -111,13 +115,12 @@ function Actividades() {
     <div className={styles.container}>
       <header className={styles.header}>
         <img src={logo} alt="Logo" className={styles.logo} />
-        <h1 className={styles.title}>Extras</h1>
         <div className={styles.headerButtons}>
           <button className={styles.addButton} onClick={handleAddActividad}>
             <FontAwesomeIcon icon={faCirclePlus} /> Agregar
           </button>
-          <button className={styles.regresarButton} onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faArrowLeft} /> Regresar
+          <button className={styles.regresarButton} onClick={handleBackClick}>
+          <FontAwesomeIcon icon={faArrowAltCircleLeft} /> Regresar
           </button>
           <button className={styles.exportButton} onClick={handleExport}>
             <FontAwesomeIcon icon={faFileExport} /> Exportar

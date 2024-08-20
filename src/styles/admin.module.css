@@ -6,6 +6,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+.header {
+  display: flex;
+  justify-content: space-between; /* Alinea el contenido a los extremos (izquierda y derecha) */
+  align-items: center; /* Centra verticalmente los elementos en el encabezado */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
 
 :global(html, body) {
   height: 100%;

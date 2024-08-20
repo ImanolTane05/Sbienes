@@ -1,7 +1,10 @@
-// src/components/AddEntregas.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import styles from '../styles/entregas.module.css';
+import logo from '../img/logo.png';
+import Pie from '../img/Pie.png'; 
+import Swal from 'sweetalert2';
 
 const firestore = getFirestore();
 
@@ -40,7 +43,7 @@ const areasResguardantes = [
   "TRIBUNAL DE ENJUICIAMIENTO DEL JUZGADO DE CONTROL Y DE JUICIO ORAL DEL DISTRITO JUDICIAL DE GURIDI Y ALCOCER",
   "PRIMER TRIBUNAL DE ENJUICIAMIENTO UNITARIO DEL JUZGADO DE CONTROL Y DE JUICIO ORAL DEL DISTRITO JUDICIAL DE GURIDI Y ALCOCER",
   "JUZGADO DE CONTROL Y DE JUICIO ORAL DEL DISTRITO JUDICIAL DE SANCHEZ PIEDRAS",
-  "TRIBUNAL DE ENJUICIAMIENTO DEL JUZGADO DE CONTROL Y DE JUICIO ORAL DEL DISTRITO JUDICIAL DE SANCHEZ PIEDRAS Y ESPECIALIZADO EN JUSTICIA PARA ADOLESCENTES DEL ESTADO DE TLAXCALA",
+  "TRIBUNAL DE ENJUICIAMIENTO DEL JUZGADO DE CONTROL Y DE JUICIO ORAL DEL DISTRITO JUDICIAL DE SANCHEZ PIEDRAS ",
   "JUZGADO DE EJECUCION ESPECIALIZADO DE MEDIDAS APLICABLES A ADOLESCENTES Y DE EJECUCION DE SANCIONES PENALES",
   "JUZGADO PRIMERO DE LO LABORAL DEL PODER JUDICIAL DEL ESTADO DE TLAXCALA",
   "CENTRO ESTATAL DE JUSTICIA ALTERNATIVA DEL ESTADO", "DIRECCION DE INFORMACION Y COMUNICACION SOCIAL",
@@ -65,6 +68,7 @@ function AddEntregas() {
   const [newOrgano, setNewOrgano] = useState('');
   const [fechaLlegada, setFechaLlegada] = useState('');
   const [cargoResguardante, setCargoResguardante] = useState('');
+  const [cantidad, setCantidad] = useState(''); // Nuevo estado para la cantidad
   const [areas, setAreas] = useState(areasResguardantes);
   const navigate = useNavigate();
 
@@ -92,117 +96,141 @@ function AddEntregas() {
     e.preventDefault();
 
     try {
-      const entregasCollection = collection(firestore, 'entregas');
-      await addDoc(entregasCollection, {
+      await addDoc(collection(firestore, 'entregas'), {
         nombreProducto,
         nombreResguardante,
         areaResguardante: newArea || areaResguardante,
         organoResguardante: newOrgano || organoResguardante,
         fechaLlegada,
         cargoResguardante,
+        cantidad, // Incluye la cantidad
       });
 
       if (newArea) {
-        const areasCollection = collection(firestore, 'areas');
-        await addDoc(areasCollection, { nombre: newArea });
+        await addDoc(collection(firestore, 'areas'), { nombre: newArea });
+        setNewArea(''); // Limpiar campo
       }
 
       if (newOrgano) {
-        const organosCollection = collection(firestore, 'organos');
-        await addDoc(organosCollection, { nombre: newOrgano });
+        await addDoc(collection(firestore, 'organos'), { nombre: newOrgano });
+        setNewOrgano(''); // Limpiar campo
       }
 
-      navigate('/indexentregas');
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Entrega agregada con éxito.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      }).then(() => {
+        navigate('/entregasPendientes');
+      });
     } catch (error) {
       console.error('Error adding entrega:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al agregar la entrega.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
     }
   };
 
-  const handleCancel = () => {
-    navigate('/indexentregas');
-  };
-
   return (
-    <div>
-      <h1>Agregar Entregas</h1>
-      <form onSubmit={handleAddEntrega}>
-        <div>
-          <label>Nombre del Producto:</label>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <h1 className={styles.title}>Agregar Entregas</h1>
+        <button type="button" className={styles.cancelButton} onClick={() => navigate(-1)}>Cancelar</button>
+      </header>
+      <form className={styles.form} onSubmit={handleAddEntrega}>
+        <div className={styles.formGroup}>
+          <label htmlFor="nombreProducto">Nombre del Producto</label>
           <input
+            id="nombreProducto"
             type="text"
             value={nombreProducto}
             onChange={(e) => setNombreProducto(e.target.value)}
-            required
           />
         </div>
-        <div>
-          <label>Nombre del Resguardante:</label>
+        <div className={styles.formGroup}>
+          <label htmlFor="nombreResguardante">Nombre del Resguardante</label>
           <input
+            id="nombreResguardante"
             type="text"
             value={nombreResguardante}
             onChange={(e) => setNombreResguardante(e.target.value)}
-            required
           />
         </div>
-        <div>
-          <label>Área Resguardante:</label>
+        <div className={styles.formGroup}>
+  <label htmlFor="areaResguardante">Área del Resguardante</label>
+  <select
+    id="areaResguardante"
+    value={areaResguardante}
+    onChange={(e) => setAreaResguardante(e.target.value)}
+  >
+    <option value="">Seleccione un área</option>
+    {areas.map(area => (
+      <option key={area} value={area}>{area}</option>
+    ))}
+  </select>
+  <input
+    type="text"
+    placeholder="Agregar nueva área"
+    value={newArea}
+    onChange={(e) => setNewArea(e.target.value)}
+  />
+</div>
+        <div className={styles.formGroup}>
+          <label htmlFor="organoResguardante">Órgano del Resguardante</label>
           <select
-            value={areaResguardante}
-            onChange={(e) => setAreaResguardante(e.target.value)}
-          >
-            {areas.map((area, index) => (
-              <option key={index} value={area}>
-                {area}
-              </option>
-            ))}
-          </select>
-          <input
-            type="text"
-            placeholder="Otra área"
-            value={newArea}
-            onChange={(e) => setNewArea(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Órgano Resguardante:</label>
-          <select
+            id="organoResguardante"
             value={organoResguardante}
             onChange={(e) => setOrganoResguardante(e.target.value)}
           >
-            {organos.map((organo, index) => (
-              <option key={index} value={organo}>
-                {organo}
-              </option>
+            <option value="">Seleccione un órgano</option>
+            {organos.map(organo => (
+              <option key={organo} value={organo}>{organo}</option>
             ))}
           </select>
           <input
             type="text"
-            placeholder="Otro órgano"
+            placeholder="Agregar nuevo órgano"
             value={newOrgano}
             onChange={(e) => setNewOrgano(e.target.value)}
           />
         </div>
-        <div>
-          <label>Fecha de Llegada:</label>
+        <div className={styles.formGroup}>
+          <label htmlFor="cantidad">Cantidad</label>
           <input
+            id="cantidad"
+            type="number"
+            value={cantidad}
+            onChange={(e) => setCantidad(e.target.value)}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="fechaLlegada">Fecha de Llegada</label>
+          <input
+            id="fechaLlegada"
             type="date"
             value={fechaLlegada}
             onChange={(e) => setFechaLlegada(e.target.value)}
-            required
           />
         </div>
-        <div>
-          <label>Cargo del Resguardante:</label>
+        <div className={styles.formGroup}>
+          <label htmlFor="cargoResguardante">Cargo del Resguardante</label>
           <input
+            id="cargoResguardante"
             type="text"
             value={cargoResguardante}
             onChange={(e) => setCargoResguardante(e.target.value)}
-            required
           />
         </div>
-        <button type="submit">Agregar Entrega</button>
-        <button type="button" onClick={handleCancel}>Cancelar</button>
+        <button type="submit" className={styles.submitButton}>Agregar Entrega</button>
       </form>
+      <footer className={styles.footer}>
+        <img src={Pie} alt="Pie" className={styles.footerDecoration} />
+      </footer>
     </div>
   );
 }

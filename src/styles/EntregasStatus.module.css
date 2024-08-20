@@ -1,0 +1,176 @@
+/* Contenedor principal 
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Encabezado 
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    
+  }
+  
+  .logo {
+    width: 350px;
+    height: auto;
+  }
+  
+  .headerButtons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Botón para generar reporte 
+  .generateReportButton {
+    padding: 10px 20px;
+    background-color: #fff; /* Fondo blanco 
+    color: #922344; /* Color vino oscuro 
+    border: 2px solid #922344; /* Borde vino oscuro 
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .generateReportButton:hover {
+    background-color: #922344; /* Color vino oscuro 
+    color: #fff; /* Texto blanco 
+  }
+  
+  /* Botón para regresar 
+  .backButton {
+    padding: 10px 20px;
+    background-color: #fff; /* Fondo blanco 
+    color: #922344; /* Color vino oscuro 
+    border: 2px solid #922344; /* Borde vino oscuro 
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .backButton:hover {
+    background-color: #922344; /* Color vino oscuro 
+    color: #fff; /* Texto blanco 
+  }
+  
+  /* Contenido principal 
+  .mainContent {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Contenedor de entregas 
+  .entregasContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Tarjeta de entrega 
+  .entregaCard {
+    border: 1px solid #e0e0e0; /* Borde suave 
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ffffff; /* Fondo blanco 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil 
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición suave 
+  }
+  
+  /* Efecto al pasar el cursor sobre la tarjeta 
+  .entregaCard:hover {
+    transform: translateY(-5px); /* Elevación ligera 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada 
+  }
+  
+  /* Contenido dentro de la tarjeta 
+  .entregaCard .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Título de la tarjeta 
+  .entregaCard .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #922344; /* Color vino oscuro 
+  }
+  
+  /* Texto de la tarjeta 
+  .entregaCard .text {
+    font-size: 1rem;
+    color: #333; /* Color de texto gris oscuro 
+  }
+  
+  /* Botones dentro de la tarjeta 
+  .entregaCard .actionButtons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .entregaCard .actionButtons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #922344; /* Color vino oscuro 
+    color: #fff; /* Texto blanco 
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .entregaCard .actionButtons button:hover {
+    background-color: #7a1e2b; /* Color vino más oscuro 
+    transform: scale(1.05); /* Efecto de aumento suave 
+  }
+  
+  /* Navegación de semanas 
+  .weekNavigator, .weekNavigatorBottom {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio más amplio entre los botones 
+    margin-top: -150px; /* Margen superior aumentado 
+  }
+  
+  .navButton {
+    padding: 10px 20px;
+    background-color: #922344; /* Color vino oscuro 
+    color: #fff; /* Texto blanco 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .navButton:hover {
+    background-color: #7a1e2b; /* Color vino más oscuro 
+    transform: scale(1.05); /* Efecto de aumento suave 
+  }
+  
+  /* Pie de página 
+  .footer {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .footerDecoration {
+    width: 23%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+    */
+  

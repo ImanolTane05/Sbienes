@@ -4,6 +4,9 @@ import { getFirestore, collection, query, where, getDocs } from 'firebase/firest
 import { format, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { saveAs } from 'file-saver';
+import styles from '../styles/entregascon.module.css'; 
+import logo from "../img/logo.png";
+import Pie from "../img/Pie.png";
 
 const firestore = getFirestore();
 
@@ -19,36 +22,17 @@ function EntregasConcluidas() {
         const startDate = startOfWeek(selectedWeek, { locale: es });
         const endDate = endOfWeek(selectedWeek, { locale: es });
 
-        const completedQuery = query(
-          collection(firestore, "entregas"),
-          where("completada", "==", true)
-        );
-        const pendingQuery = query(
-          collection(firestore, "entregas"),
-          where("completada", "==", false)
-        );
-
         const [completedSnapshot, pendingSnapshot] = await Promise.all([
-          getDocs(completedQuery),
-          getDocs(pendingQuery),
+          getDocs(query(collection(firestore, "entregas"), where("completada", "==", true))),
+          getDocs(query(collection(firestore, "entregas"), where("completada", "==", false))),
         ]);
 
-        const fetchedCompletedEntregas = completedSnapshot.docs
-          .map(doc => ({ id: doc.id, ...doc.data() }))
-          .filter(entrega => {
-            const fechaLlegada = new Date(entrega.fechaLlegada);
-            return fechaLlegada >= startDate && fechaLlegada <= endDate;
-          });
+        const filterByDate = (docs) =>
+          docs.map(doc => ({ id: doc.id, ...doc.data() }))
+               .filter(entrega => new Date(entrega.fechaLlegada) >= startDate && new Date(entrega.fechaLlegada) <= endDate);
 
-        const fetchedPendingEntregas = pendingSnapshot.docs
-          .map(doc => ({ id: doc.id, ...doc.data() }))
-          .filter(entrega => {
-            const fechaLlegada = new Date(entrega.fechaLlegada);
-            return fechaLlegada >= startDate && fechaLlegada <= endDate;
-          });
-
-        setEntregasConcluidas(fetchedCompletedEntregas);
-        setEntregasPendientes(fetchedPendingEntregas);
+        setEntregasConcluidas(filterByDate(completedSnapshot.docs));
+        setEntregasPendientes(filterByDate(pendingSnapshot.docs));
       } catch (error) {
         console.error("Error fetching entregas:", error);
       }
@@ -58,66 +42,74 @@ function EntregasConcluidas() {
   }, [selectedWeek]);
 
   const handleWeekChange = (increment) => {
-    setSelectedWeek(prevDate =>
-      increment ? addWeeks(prevDate, 1) : subWeeks(prevDate, 1)
-    );
+    setSelectedWeek(prevDate => increment ? addWeeks(prevDate, 1) : subWeeks(prevDate, 1));
   };
 
   const handleGenerateReport = () => {
-    const startDate = format(startOfWeek(selectedWeek, { locale: es }), 'dd MMM yyyy', { locale: es });
-    const endDate = format(endOfWeek(selectedWeek, { locale: es }), 'dd MMM yyyy', { locale: es });
+    const startDateFormatted = format(startOfWeek(selectedWeek, { locale: es }), 'dd MMM yyyy');
+    const endDateFormatted = format(endOfWeek(selectedWeek, { locale: es }), 'dd MMM yyyy');
 
-    let report = `Reporte de Entregas del ${startDate} al ${endDate}\n\nEntregas Concluidas:\n`;
-    entregasConcluidas.forEach(entrega => {
-      report += `- ${entrega.nombreProducto} (Área Resguardante: ${entrega.areaResguardante}, Resguardante: ${entrega.nombreResguardante}, Fecha de Llegada: ${new Date(entrega.fechaLlegada).toLocaleDateString()})\n`;
-    });
+    const formatEntrega = (entrega) => `- ${entrega.nombreProducto} (Área Resguardante: ${entrega.areaResguardante}, Resguardante: ${entrega.nombreResguardante}, Fecha de Llegada: ${new Date(entrega.fechaLlegada).toLocaleDateString()})`;
 
-    report += `\nEntregas Pendientes:\n`;
-    entregasPendientes.forEach(entrega => {
-      report += `- ${entrega.nombreProducto} (Área Resguardante: ${entrega.areaResguardante}, Resguardante: ${entrega.nombreResguardante}, Fecha de Llegada: ${new Date(entrega.fechaLlegada).toLocaleDateString()})\n`;
-    });
+    const report = [
+      `Reporte de Entregas del ${startDateFormatted} al ${endDateFormatted}\n\nEntregas Concluidas:\n`,
+      ...entregasConcluidas.map(formatEntrega),
+      `\nEntregas Pendientes:\n`,
+      ...entregasPendientes.map(formatEntrega),
+    ].join('\n');
 
     const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `Reporte_Entregas_${startDate}_al_${endDate}.txt`);
+    saveAs(blob, `Reporte_Entregas_${startDateFormatted}_al_${endDateFormatted}.txt`);
   };
 
   const startDate = startOfWeek(selectedWeek, { locale: es });
   const endDate = endOfWeek(selectedWeek, { locale: es });
 
   return (
-    <div>
-      <h1>Entregas Concluidas</h1>
-      <div>
+    <div className={styles.entregasContainer}>
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          <button className={styles.generateReportButton} onClick={handleGenerateReport}>Generar Reporte</button>
+          <button className={styles.backButton} onClick={() => navigate('/')}><i className="fas fa-arrow-left"></i> Regresar</button>
+        </div>
+        <h1>Entregas Concluidas</h1>
+        <img src={logo} alt="Logo" className={styles.logo} />
+      </header>
+      <div className={styles.navButtons}>
         <button onClick={() => navigate('/entregaspendientes')}>Ver Entregas Pendientes</button>
         <button onClick={() => handleWeekChange(false)}>Semana Anterior</button>
         <span>Semana del {format(startDate, 'dd MMM yyyy', { locale: es })} al {format(endDate, 'dd MMM yyyy', { locale: es })}</span>
         <button onClick={() => handleWeekChange(true)}>Semana Siguiente</button>
-        <button onClick={handleGenerateReport}>Generar Reporte</button>
       </div>
-      {entregasConcluidas.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre del Producto</th>
-              <th>Área Resguardante</th>
-              <th>Nombre del Resguardante</th>
-              <th>Fecha de Entrega</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entregasConcluidas.map((entrega) => (
-              <tr key={entrega.id}>
-                <td>{entrega.nombreProducto}</td>
-                <td>{entrega.areaResguardante}</td>
-                <td>{entrega.nombreResguardante}</td>
-                <td>{new Date(entrega.fechaLlegada).toLocaleDateString()}</td>
+      <div className={styles.tableContainer}>
+        {entregasConcluidas.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre del Producto</th>
+                <th>Área Resguardante</th>
+                <th>Nombre del Resguardante</th>
+                <th>Fecha de Entrega</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No hay entregas concluidas para la semana seleccionada.</p>
-      )}
+            </thead>
+            <tbody>
+              {entregasConcluidas.map((entrega) => (
+                <tr key={entrega.id}>
+                  <td>{entrega.nombreProducto}</td>
+                  <td>{entrega.areaResguardante}</td>
+                  <td>{entrega.nombreResguardante}</td>
+                  <td>{new Date(entrega.fechaLlegada).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className={styles.emptyMessage}>No hay entregas concluidas para esta semana.</p>
+        )}
+      </div>
+      <footer className={styles.footer}>
+        <img src={Pie} alt="Pie de página" className={styles.footerDecoration} />
+      </footer>
     </div>
   );
 }

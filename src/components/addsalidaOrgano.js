@@ -7,7 +7,7 @@ import Pie from '../img/Pie.png';
 import styles from '../styles/salidas.module.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
+   
 const firestore = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
+import '../styles/infoen.module.css'; // Importar el archivo CSS
+import logo from "../img/logo.png";
+import Pie from "../img/Pie.png";
 
 const firestore = getFirestore();
 
@@ -88,12 +91,24 @@ function InfoEntregas() {
         console.error("Error updating document:", error);
       }
     }
+  }; 
+
+  const handleUpdateData = () => {
+    // Lógica para actualizar datos
+    console.log("Datos actualizados");
   };
 
   return (
-    <div>
+    <div className="container">
       {entrega ? (
         <>
+          <div className="top-bar">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="top-bar-buttons">
+              <button onClick={handleUpdateData} className="updateButton">Actualizar Datos</button>
+              <button onClick={() => navigate(-1)} className="backButton">Regresar</button>
+            </div>
+          </div>
           <h1>{entrega.nombreProducto}</h1>
           <div>
             <p><strong>Área Resguardante:</strong> {entrega.areaResguardante}</p>
@@ -102,7 +117,7 @@ function InfoEntregas() {
             <p><strong>Fecha de Llegada:</strong> {entrega.fechaLlegada}</p>
             <p><strong>Cargo del Resguardante:</strong> {entrega.cargoResguardante}</p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+          <div className="steps">
             <label>
               <input 
                 type="checkbox" 
@@ -144,11 +159,14 @@ function InfoEntregas() {
             rows="4"
             cols="50"
           />
-          <div>
+          <div className="buttons-container">
             <button onClick={handleSaveChanges}>Guardar</button>
             <button onClick={handleConcluirActividad}>Concluir Actividad</button>
             <button onClick={() => navigate(-1)}>Regresar</button>
           </div>
+          <footer className="footer">
+            <img src={Pie} alt="Pie" className="footerDecoration" />
+          </footer>
         </>
       ) : (
         <p>Cargando...</p>
